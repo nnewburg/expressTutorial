@@ -23,8 +23,6 @@ app.post("/urls/:id", (req,res) =>{
 });
 
 
-
-
 function generateRandomString() {
   let alphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   let output = ""
