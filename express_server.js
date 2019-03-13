@@ -23,10 +23,11 @@ function generateRandomString() {
   return output;
 }
 
-
+let asdkjadhskj = 1;
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+  "9sm5xK": "http://www.google.com",
+  "hjka72": "Waddup Son"
 };
 
 app.get("/", (req, res) => {
