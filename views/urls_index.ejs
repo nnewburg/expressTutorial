@@ -9,16 +9,17 @@
   <title>TinyApp</title>
 </head>
 <body style="font-size:20px; padding:50px;">
+   <a href="/urls">List of URLs</a>
   <% include ./partials/_header.ejs %>
     <!-- Add EJS code here -->
 
-<a href="#">Create New TinyURL</a>
+<a href="/urls/new">Create New TinyURL</a>
 
 <h3>My URLs</h3>
 <ul>
   <% for(let keys in urls){ %>
     <form method="POST" action="/urls/<%= keys %>/delete">
-    <li style="padding-bottom: 10px;"><strong><%= keys + ': '%></strong><%= urls[keys]%><button style="margin-left: 10px;" type="submit" class="btn btn-primary">Delete</button></li>
+    <li style="padding-bottom: 10px;"><strong><%= keys + ': '%></strong><%= urls[keys]%><button style="padding: 3px;margin-left: 10px; background-color: gray;" type="submit" class="btn btn-primary"><img src="https://image.flaticon.com/icons/svg/149/149343.svg" width="20px" height="20px">Delete</button></li>
 
     </form>
 

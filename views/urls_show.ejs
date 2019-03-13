@@ -9,10 +9,12 @@
   <title>TinyApp</title>
 </head>
 <body style="font-size:20px; padding:50px;">
+
+  <a href="/urls">List of URLs</a>
    <% include ./partials/_header.ejs %>
     <!-- Add EJS code here -->
 
-<a href="#">Create New TinyURL</a>
+<a href="/urls/new">Create New TinyURL</a>
 
 <h3>ShortURL: <strong><%= shortURL %></strong></h3>
 <form class="form-inline" action="/urls/<%= shortURL %>" method="POST">
