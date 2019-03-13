@@ -29,10 +29,16 @@ app.post("/login", (req,res) =>{
   res.redirect('/urls')
 });
 
+app.post("/logout", (req,res) =>{
+  res.clearCookie("username");
+  res.redirect('/urls')
+});
+
+
+
 function generateRandomString() {
   let alphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   let output = ""
-
   for(let i = 0; i < 6; i++) {
     output += alphaNumeric.charAt(Math.floor(Math.random() * alphaNumeric.length));
   }
