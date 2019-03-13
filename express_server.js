@@ -17,19 +17,13 @@ app.post("/urls/:shortURL/delete", (req,res) =>{
   res.redirect('/urls');
 });
 
+app.post("/urls/:id", (req,res) =>{
+  urlDatabase[req.params.id] = req.body.updatedURL;
+  res.redirect('/urls')
+});
 
-var Employee = {
-  firstname: "John",
-  lastname: "Doe"
-}
 
-console.log(Employee.firstname);
-// expected output: "John"
 
-delete Employee.firstname;
-
-console.log(Employee.firstname);
-// expected output: undefined
 
 function generateRandomString() {
   let alphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
