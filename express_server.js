@@ -49,6 +49,10 @@ app.get("/urls/:shortURL", (req, res) => {
   res.render("urls_show", templateVars);
 });
 
+app.get("/u/:shortURL", (req, res) => {
+  //req.params.shortURL
+  res.redirect(urlDatabase[req.params.shortURL]);
+});
 
 
 app.get("/urls.json", (req, res) => {
