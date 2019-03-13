@@ -7,10 +7,29 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/urls", (req, res) => {
-  let longURL = generateRandomString()
-  urlDatabase[longURL] = req.body.longURL
-  res.redirect('urls/' + longURL);
+  let shortURL = generateRandomString()
+  urlDatabase[shortURL] = req.body.longURL
+  res.redirect('urls/' + shortURL);
 });
+
+app.post("/urls/:shortURL/delete", (req,res) =>{
+  delete urlDatabase[req.params.shortURL]
+  res.redirect('/urls');
+});
+
+
+var Employee = {
+  firstname: "John",
+  lastname: "Doe"
+}
+
+console.log(Employee.firstname);
+// expected output: "John"
+
+delete Employee.firstname;
+
+console.log(Employee.firstname);
+// expected output: undefined
 
 function generateRandomString() {
   let alphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -19,7 +38,6 @@ function generateRandomString() {
   for(let i = 0; i < 6; i++) {
     output += alphaNumeric.charAt(Math.floor(Math.random() * alphaNumeric.length));
   }
-
   return output;
 }
 
@@ -27,7 +45,6 @@ let asdkjadhskj = 1;
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
-  "hjka72": "Waddup Son"
 };
 
 app.get("/", (req, res) => {

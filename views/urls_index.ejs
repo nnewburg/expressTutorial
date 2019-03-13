@@ -17,7 +17,11 @@
 <h3>My URLs</h3>
 <ul>
   <% for(let keys in urls){ %>
-    <li><strong><%= keys + ': '%></strong><%= urls[keys]%></li>
+    <form method="POST" action="/urls/<%= keys %>/delete">
+    <li style="padding-bottom: 10px;"><strong><%= keys + ': '%></strong><%= urls[keys]%><button style="margin-left: 10px;" type="submit" class="btn btn-primary">Delete</button></li>
+
+    </form>
+
   <% } %>
 </ul>
 
