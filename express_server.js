@@ -8,6 +8,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser())
 
+
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString()
   urlDatabase[shortURL] = req.body.longURL
@@ -34,7 +35,35 @@ app.post("/logout", (req,res) =>{
   res.redirect('/urls')
 });
 
+app.post("/register", (req, res) =>{
+  let randomID = generateRandomString()
 
+  if(req.body.email === "" || req.body.password === ""){
+    res.status(400).end()
+  }
+
+  if(sameMail(req.body.email,users)){
+    res.status(400).end()
+  }
+
+  users[randomID] = {
+    'id' : randomID,
+    'email' : req.body.email,
+    'password' : req.body.password
+  }
+  res.cookie("user_"+randomID, randomID)
+  res.redirect('/urls')
+
+});
+
+let sameMail = function(newMail, db){
+  for(let key in db){
+    if(users[key].email === newMail){
+      return true;
+    }
+  }
+  return false;
+}
 
 function generateRandomString() {
   let alphaNumeric = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -45,8 +74,11 @@ function generateRandomString() {
   return output;
 }
 
-let asdkjadhskj = 1;
-var urlDatabase = {
+const users = {
+
+}
+
+const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
 };
@@ -59,6 +91,7 @@ app.get("/", (req, res) => {
 
 app.get("/urls", (req, res) => {
   let templateVars = {username: req.cookies["username"], urls: urlDatabase };
+  console.log(users);
   res.render("urls_index", templateVars);
 });
 
@@ -73,8 +106,12 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  //req.params.shortURL
   res.redirect(urlDatabase[req.params.shortURL]);
+});
+
+app.get("/register", (req, res) => {
+   let templateVars = {username: req.cookies["username"], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]  };
+  res.render("register", templateVars);
 });
 
 
