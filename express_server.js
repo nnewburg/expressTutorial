@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
 const PORT = 8080;
+const bcrypt = require('bcrypt');
+const password = "purple-monkey-dinosaur"; // found in the req.params object
+const hashedPassword = bcrypt.hashSync(password, 10);
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -47,7 +50,7 @@ app.post("/login", (req,res) =>{
 
  for(let key in users){
   if(users[key].email === loginEmail){
-    if(users[key].password === loginPassword){
+    if(bcrypt.compareSync(loginPassword, users[key].password)){
       res.cookie("user_id", users[key].id);
       res.redirect("/urls");
     }
@@ -75,10 +78,12 @@ app.post("/register", (req, res) =>{
     res.status(400).send("<h1>Status Code: 403<h1>E-mail is already taken</h1>")
   }
 
+  let ogPassword = req.body.password
+
   users[randomID] = {
     'id' : randomID,
     'email' : req.body.email,
-    'password' : req.body.password
+    'password' : bcrypt.hashSync(ogPassword, 10)
   }
   res.cookie("user_id", randomID)
   res.redirect('/urls')
@@ -129,7 +134,7 @@ app.get("/urls", (req, res) => {
       filteredDB[keys] = urlDatabase[keys];
     }
   }
-
+  console.log(users);
   let templateVars = {user: users[req.cookies["user_id"]], urls: filteredDB };
   res.render("urls_index", templateVars);
 });
