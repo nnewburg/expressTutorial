@@ -21,13 +21,12 @@ app.post("/urls", (req, res) => {
 });
 
 app.post("/urls/:shortURL/delete", (req,res) =>{
-  delete urlDatabase[req.params.shortURL]
-//   if(req.cookies["user_id"] === urlDatabase[req.params.shortURL].userID){
-
-//     res.redirect('/urls')
-// } else {
-//     res.redirect('/urls');
-// }
+  if(req.cookies["user_id"] === urlDatabase[req.params.shortURL].userID){
+    delete urlDatabase[req.params.shortURL]
+    res.redirect('/urls')
+} else {
+    res.redirect('/urls');
+}
  res.redirect('/urls');
 });
 
