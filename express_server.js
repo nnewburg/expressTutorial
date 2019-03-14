@@ -15,8 +15,6 @@ app.post("/urls", (req, res) => {
     "longURL" : req.body.longURL,
     "userID" : req.cookies["user_id"]
   }
-  console.log(urlDatabase)
-  console.log(req.body.longURL)
   res.redirect('urls/' + shortURL);
 });
 
@@ -151,7 +149,7 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  res.redirect(urlDatabase[req.params.shortURL]);
+  res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
 
 app.get("/register", (req, res) => {
