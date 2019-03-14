@@ -11,18 +11,36 @@ app.use(cookieParser())
 
 app.post("/urls", (req, res) => {
   let shortURL = generateRandomString()
-  urlDatabase[shortURL] = req.body.longURL
+  urlDatabase[shortURL] = {
+    "longURL" : req.body.longURL,
+    "userID" : req.cookies["user_id"]
+  }
+  console.log(urlDatabase)
+  console.log(req.body.longURL)
   res.redirect('urls/' + shortURL);
 });
 
 app.post("/urls/:shortURL/delete", (req,res) =>{
   delete urlDatabase[req.params.shortURL]
-  res.redirect('/urls');
+//   if(req.cookies["user_id"] === urlDatabase[req.params.shortURL].userID){
+
+//     res.redirect('/urls')
+// } else {
+//     res.redirect('/urls');
+// }
+ res.redirect('/urls');
 });
 
 app.post("/urls/:id", (req,res) =>{
-  urlDatabase[req.params.id] = req.body.updatedURL;
-  res.redirect('/urls')
+
+  if(req.cookies["user_id"] === urlDatabase[req.params.id].userID){
+    urlDatabase[req.params.id].longURL = req.body.updatedURL;
+    res.redirect('/urls')
+  }
+  else{
+    res.redirect('/urls')
+  }
+
 });
 
 app.post("/login", (req,res) =>{
@@ -53,11 +71,11 @@ app.post("/register", (req, res) =>{
   let randomID = generateRandomString()
 
   if(req.body.email === "" || req.body.password === ""){
-    res.status(400).send("<h1>Status Code: 400<h1>Cannot register with a blank email or password</h1>")
+    res.status(400).send("<h1>Status Code: 403<h1>Cannot register with an empty email or password</h1>")
   }
 
   if(sameMail(req.body.email,users)){
-    res.status(400).send("<h1>Status Code: 400<h1>Identical EMails not allowed</h1>")
+    res.status(400).send("<h1>Status Code: 403<h1>E-mail is already taken</h1>")
   }
 
   users[randomID] = {
@@ -93,8 +111,7 @@ const users = {
 }
 
 const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com",
+
 };
 
 
@@ -104,18 +121,33 @@ app.get("/", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = {user: users[req.cookies["user_id"]], urls: urlDatabase };
-  console.log(users);
+
+
+  let filteredDB = {
+
+  }
+
+  for(let keys in urlDatabase){
+    if(urlDatabase[keys].userID === req.cookies["user_id"]){
+      filteredDB[keys] = urlDatabase[keys];
+    }
+  }
+
+  let templateVars = {user: users[req.cookies["user_id"]], urls: filteredDB };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
   let templateVars = {user: users[req.cookies["user_id"]], urls: urlDatabase };
-  res.render("urls_new", templateVars);
+  if(users[req.cookies["user_id"]] !== undefined) {
+    res.render("urls_new", templateVars);
+  } else {
+    res.redirect("/login")
+  }
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = {user: users[req.cookies["user_id"]], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
+  let templateVars = {user: users[req.cookies["user_id"]], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL].longURL };
   res.render("urls_show", templateVars);
 });
 

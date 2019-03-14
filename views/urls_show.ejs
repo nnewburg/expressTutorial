@@ -14,8 +14,6 @@
    <% include ./partials/_header.ejs %>
     <!-- Add EJS code here -->
 
-<a href="/urls/new">Create New TinyURL</a>
-
 <h3>ShortURL: <strong><%= shortURL %></strong></h3>
 <form class="form-inline" action="/urls/<%= shortURL %>" method="POST">
    <input class="form-control" type="text" name="updatedURL" placeholder="<%= longURL %>" style="width: 300px; margin: 1em">
