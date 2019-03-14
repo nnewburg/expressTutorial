@@ -26,12 +26,24 @@ app.post("/urls/:id", (req,res) =>{
 });
 
 app.post("/login", (req,res) =>{
-  res.cookie("username", req.body.username)
+
+  let loginEmail = req.body.email
+  let loginPassword = req.body.password
+
+ for(let key in users){
+  if(users[key].email === loginEmail){
+    if(users[key].password === loginPassword){
+      res.cookie("user_id", users[key].id);
+      res.redirect("/urls");
+    }
+  }
+
+ }
   res.redirect('/urls')
 });
 
 app.post("/logout", (req,res) =>{
-  res.clearCookie("username");
+  res.clearCookie("user_id");
   res.redirect('/urls')
 });
 
@@ -39,11 +51,11 @@ app.post("/register", (req, res) =>{
   let randomID = generateRandomString()
 
   if(req.body.email === "" || req.body.password === ""){
-    res.status(400).end()
+    res.status(400).send("<h1>Status Code: 400<h1>Cannot register with a blank email or password</h1>")
   }
 
   if(sameMail(req.body.email,users)){
-    res.status(400).end()
+    res.status(400).send("<h1>Status Code: 400<h1>Identical EMails not allowed</h1>")
   }
 
   users[randomID] = {
@@ -51,7 +63,7 @@ app.post("/register", (req, res) =>{
     'email' : req.body.email,
     'password' : req.body.password
   }
-  res.cookie("user_"+randomID, randomID)
+  res.cookie("user_id", randomID)
   res.redirect('/urls')
 
 });
@@ -85,23 +97,23 @@ const urlDatabase = {
 
 
 app.get("/", (req, res) => {
-  let templateVars = { username: req.cookies["username"], urls: urlDatabase };
+  let templateVars = {user: users[req.cookies["user_id"]], urls: urlDatabase };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = {username: req.cookies["username"], urls: urlDatabase };
+  let templateVars = {user: users[req.cookies["user_id"]], urls: urlDatabase };
   console.log(users);
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  let templateVars = {username: req.cookies["username"], urls: urlDatabase };
+  let templateVars = {user: users[req.cookies["user_id"]], urls: urlDatabase };
   res.render("urls_new", templateVars);
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  let templateVars = {username: req.cookies["username"], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
+  let templateVars = {user: users[req.cookies["user_id"]], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
   res.render("urls_show", templateVars);
 });
 
@@ -110,8 +122,13 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-   let templateVars = {username: req.cookies["username"], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]  };
+   let templateVars = {user: users[req.cookies["user_id"]], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]  };
   res.render("register", templateVars);
+});
+
+app.get("/login", (req, res) => {
+   let templateVars = {user: users[req.cookies["user_id"]], shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL]  };
+  res.render("login", templateVars);
 });
 
 

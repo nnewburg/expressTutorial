@@ -1,17 +1,14 @@
 <h1>TinyApp - Shrtn yr URLs</h1>
 
 
-<% if (username !== undefined){ %>
-<h3>Logged In As: <%= username %>!</h3>
+<% if (user !== undefined){ %>
+<h3>Logged In As: <%= user.email %>!</h3>
 <form method="POST" action="/logout">
 <button type="submit" class="btn btn-primary" style= "margin: 0px 10px;">logout</button>
 </form>
 <% } else { %>
-<form method="POST" action="/login">
-<label for="username">Username:</label>
-<input style="width: 300px; margin-bottom:20px;" class="form-control" type="text" name="username">
-<button type="submit" class="btn btn-primary">Login</button>
-</form>
+<a href="/login">Login</a> |
+<a href="/register">Register</a>
 <% } %>
 
 
