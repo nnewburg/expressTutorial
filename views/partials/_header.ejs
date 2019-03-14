@@ -1,10 +1,11 @@
-<h1>TinyApp - Shrtn yr URLs</h1>
+<h1>TinyApp</h1>
 
 
 <% if (user !== undefined){ %>
+<a href="/urls">URLs</a> | <a href="/urls/new">Create New TinyURL</a>
 <h3>Logged In As: <%= user.email %>!</h3>
 <form method="POST" action="/logout">
-<button type="submit" class="btn btn-primary" style= "margin: 0px 10px;">logout</button>
+<button style="margin:10px;" type="submit" class="btn btn-primary" style= "margin: 0px 10px;">logout</button>
 </form>
 <% } else { %>
 <a href="/login">Login</a> |

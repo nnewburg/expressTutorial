@@ -36,10 +36,12 @@ app.post("/login", (req,res) =>{
       res.cookie("user_id", users[key].id);
       res.redirect("/urls");
     }
+    else {
+      res.status(403).send("<h1>Status Code: 403<h1>Wrong Password</h1>")
+    }
   }
-
- }
-  res.redirect('/urls')
+}
+  res.status(403).send("<h1>Status Code: 403<h1>Email not found</h1>")
 });
 
 app.post("/logout", (req,res) =>{
