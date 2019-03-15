@@ -19,7 +19,7 @@ This is a project using Express.js. It teaches the fundamentals of routing with 
 
 ## Lessons Learned
 
-Markup: * Downloading and requiring packages with NPM
+* Downloading and requiring packages with NPM
   * Express
   * Body Parser
   * Bcrypt
