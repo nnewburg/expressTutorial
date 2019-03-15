@@ -6,6 +6,7 @@ TinyApp is a full stack web application buillt with Node and Express that allows
 This is a project using Express.js. It teaches the fundamentals of routing with GET and POST methods.
 
 !["Screenshot of URLs page"](https://github.com/nnewburg/expressTutorial/blob/master/docs/tinyApp1.png?raw=true)
+--------------------------------------------------------
 !["Screenshot of URLs page"](https://github.com/nnewburg/expressTutorial/blob/master/docs/tinyApp2.png?raw=true)
 
 ## Dependencies
