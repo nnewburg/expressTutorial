@@ -2,15 +2,15 @@
 
 
 <% if (user !== undefined){ %>
-<a href="/urls">URLs</a> | <a href="/urls/new">Create New TinyURL</a>
-<h3>Logged In As: <%= user.email %>!</h3>
-<form method="POST" action="/logout">
-<button style="margin:10px;" type="submit" class="btn btn-primary" style= "margin: 0px 10px;">logout</button>
-</form>
+  <a href="/urls">URLs</a> | <a href="/urls/new">Create New TinyURL</a>
+    <h3>Logged In As: <%= user.email %>!</h3>
+    <form method="POST" action="/logout">
+      <button style="margin:10px;" type="submit" class="btn btn-primary" style= "margin: 0px 10px;">logout</button>
+    </form>
 <% } else { %>
-<a href="/login">Login</a> |
-<a href="/register">Register</a> |
-<a href="/urls/new">Create URL</a>
+  <a href="/login">Login</a> |
+  <a href="/register">Register</a> |
+  <a href="/urls/new">Create URL</a>
 <% } %>
 
 
