@@ -14,16 +14,14 @@
 
 <br>
 <h3>My URLs</h3>
+
 <ul>
   <% for(let keys in urls){ %>
     <form method="POST" action="/urls/<%= keys %>/delete">
     <li style="padding-bottom: 10px;"><strong><%= keys + ': '%></strong><%= urls[keys].longURL %>
       <a href="urls/<%=keys%>"><u>change</u></a>
       <button style="padding: 5px;margin-left: 10px; background-color: gray;" type="submit" class="btn btn-primary"><img src="https://image.flaticon.com/icons/svg/149/149343.svg" width="20px" height="20px">   Delete</button>
-    </li>
-
     </form>
-
   <% } %>
 </ul>
 
