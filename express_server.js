@@ -180,7 +180,12 @@ app.get("/urls/:shortURL", (req, res) => {
 
 //get route that redirects the user to the Long URL
 app.get("/u/:shortURL", (req, res) => {
-  res.redirect(urlDatabase[req.params.shortURL].longURL);
+  let templateVars = {user: users[req.session.user_id], urls: urlDatabase };
+  if(urlDatabase.hasOwnProperty(req.params.shortURL)){
+    res.redirect(urlDatabase[req.params.shortURL].longURL);
+  } else {
+    res.render("nosuchURL", templateVars)
+  }
 });
 
 //get route to the register page
