@@ -31,7 +31,7 @@ This is a project using Express.js. It teaches the fundamentals of routing with 
   * Body Parser
   * Bcrypt
   * Cookie Session
-* Creating multiple esj templates
+* Creating multiple ejs templates
 * Learning the basics of cookies and their purpose
 * Learned the idea behind request and response
 * A little bit of HTML and CSS
