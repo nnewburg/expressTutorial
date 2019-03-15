@@ -59,7 +59,8 @@ app.post("/urls/:id", (req,res) =>{
   }
 });
 
-//login route with proper error messages
+//login route with proper error messages retrieves the email and password
+//from the login form and compares them to the users database
 app.post("/login", (req,res) =>{
   let loginEmail = req.body.email;
   let loginPassword = req.body.password;
