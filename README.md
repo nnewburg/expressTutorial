@@ -18,11 +18,12 @@ This is a project using Express.js. It teaches the fundamentals of routing with 
 - Run the development web server using the `node express_server.js` command.
 
 ## Lessons Learned
-* Downloading and requiring packages with NPM
- * Express
- * Body Parser
- * Bcrypt
- * Cookie Session
+
+Markup: * Downloading and requiring packages with NPM
+  * Express
+  * Body Parser
+  * Bcrypt
+  * Cookie Session
 * Creating multiple esj templates
 * Learning the basics of cookies and their purpose
 * Learned the idea behind request and response arguments
