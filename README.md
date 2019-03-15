@@ -7,7 +7,7 @@ This is a project using Express.js. It teaches the fundamentals of routing with 
 
 !["Screenshot of URLs page"](https://github.com/nnewburg/expressTutorial/blob/master/docs/tinyApp1.png?raw=true)
 --------------------------------------------------------
-////////////////////////////////////////////////////////
+-
 --------------------------------------------------------
 !["Screenshot of URLs page"](https://github.com/nnewburg/expressTutorial/blob/master/docs/tinyApp2.png?raw=true)
 
