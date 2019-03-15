@@ -165,9 +165,10 @@ app.get("/urls", (req, res) => {
 app.get("/urls/new", (req, res) => {
   let templateVars = {user: users[req.session.user_id], urls: urlDatabase };
   if(users[req.session.user_id] !== undefined) {
-    res.render("urls_new", templateVars);
+    return res.render("urls_new", templateVars);
   } else {
-    res.redirect("/login");
+
+    return res.render("pleaselogin", templateVars);
   }
 });
 
