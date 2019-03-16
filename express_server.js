@@ -94,11 +94,11 @@ app.post("/register", (req, res) =>{
   let randomID = generateRandomString();
 
   if(req.body.email === "" || req.body.password === ""){
-    res.status(400).send("<h1>Status Code: 403<h1>Cannot register with an empty email or password</h1>");
+    return res.status(400).send("<h1>Status Code: 403<h1>Cannot register with an empty email or password</h1>");
   }
 
   if(sameMail(req.body.email,users)){
-    res.status(400).send("<h1>Status Code: 403<h1>E-mail is already taken</h1>");
+    return res.status(400).send("<h1>Status Code: 403<h1>E-mail is already taken</h1>");
   }
 
   let ogPassword = req.body.password;
